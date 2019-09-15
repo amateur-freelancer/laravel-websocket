@@ -1,0 +1,11 @@
+.DS_Store
+/node_modules
+npm-debug.log
+
+/public/storage
+/public/frontend
+/storage/*
+/vendor
+.env
+laravel-echo-server.lock
+laravel-echo-server.json

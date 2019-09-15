@@ -1,0 +1,62 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row" *ngFor="let order of groupedDashboardsKeys">
+    <div class="col-lg-4" *ngFor="let dashboard of groupedDashboards[order]">
+      <div class="ibox float-e-margins" [ngStyle]="{'border': '3px solid', 'border-color': dashboard.color}">
+        <div class="ibox-title">
+          <h5>{{ dashboard.title }}&nbsp;<small>{{ dashboard.updated_at }}</small></h5>
+          <div class="ibox-tools">
+            <a class="setting-link" (click)="editBox(dashboard)">
+              <i class="fa fa-cog"></i>
+            </a>
+            <a class="refresh-link" (click)="refreshBox(dashboard)">
+              <i class="fa fa-refresh"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div [innerHTML]="dashboard.info"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="box-settings" class="modal inmodal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content animated fadeIn">
+      <div class="modal-header">
+        <h4>Dashboard Settings</h4>
+      </div>
+      <div class="modal-body" *ngIf="selectedBox">
+        <div class="form-group">
+          <label class="control-label">Code</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedBox.code">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Title</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedBox.title">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Info</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedBox.info">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Color</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedBox.color">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Sort Order</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedBox.sort_order">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Profile Key</label>
+          <input type="text" class="form-control" [(ngModel)]="selectedBox.profile_key">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" (click)="updateBox(selectedBox)">Update</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
