@@ -1,1 +1,74 @@
-Admin page
+<div class="wrapper wrapper-content">
+	<div class="container">
+		<h2 style="display: inline-block;">Manage Users</h2>&nbsp;   
+		<button style="margin-top: -7px;" type="button" class="btn btn-primary btn-sm" data-toggle="modal" (click)="addUser()" data-target="#user">
+			<i class="fa fa-plus" aria-hidden="true"></i> Create
+		</button>
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Role</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let user of users">
+					<td>{{ user.name }}</td>
+					<td>{{ user.email }}</td>
+					<td>{{ user.role }}</td>
+					<td>
+					    <button type="button" class="btn btn-danger btn-sm" (click)="deleteUser(user)" >
+					      <i class="fa fa-trash" aria-hidden="true"></i> Delete
+					    </button>
+					    <button class="btn btn-warning btn-sm" (click)="editUser(user)">
+					      <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+					    </button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div id="user" class="modal inmodal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content animated fadeIn">
+      <div class="modal-header">
+        <h4>{{ modalTitle }}</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="alert alert-danger alert-dismissible" *ngIf="error != ''">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong> {{error}}
+        </div>
+        <div class="form-group">
+          <label class="control-label">Name</label>
+          <input type="text" class="form-control" [(ngModel)]="user.name">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Email</label>
+          <input type="text" class="form-control" [(ngModel)]="user.email">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Password</label>
+          <input type="text" class="form-control" [(ngModel)]="user.password">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Role</label>
+          <select class="form-control" [(ngModel)]="user.role">
+			<option value="" disabled="">Select a Role</option>
+			<option value="user">User</option>
+			<option value="admin">Admin</option>
+		  </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" (click)="createUser()" *ngIf="userAction === 'add'">Submit</button>
+        <button type="submit" class="btn btn-danger" (click)="updateUser()" *ngIf="userAction === 'edit'">Update</button>
+        <button type="button" class="btn btn-white" (click)="cancel()" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

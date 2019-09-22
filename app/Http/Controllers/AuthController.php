@@ -25,7 +25,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'error', 
                 'message' => $validator->messages()
-            ]);
+            ], 401);
         }
         $user = User::create($credentials);
 
@@ -58,14 +58,14 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'error', 
                 'message' => $validator->messages()
-            ]);
+            ], 401);
         }
         try {
             // Attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json([
                     'status' => 'error', 
-                    'message' => 'We can`t find an account with this credentials.'
+                    'message' => 'Incorrect email or password'
                 ], 401);
             }
         } catch (JWTException $e) {
@@ -85,6 +85,34 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'role' => $user->role 
                 // You can add more details here as per you requirment. 
+            ]
+        ]);
+    }
+
+    public function password(Request $request) {
+        $credentials = $request->only('new_password', 'confirm_password');
+        $rules = [
+            'new_password' => 'required|min:6',
+            'confirm_password' => 'same:new_password',
+        ];
+        $validator = Validator::make($credentials, $rules);
+        if($validator->fails()) {
+            return response()->json([
+                'status' => 'error', 
+                'message' => $validator->messages()
+            ], 401);
+        }
+        $header = $request->header('Authorization');
+        $parts = explode (" ", $header);  
+        $token = $parts[1];
+        $user = JWTAuth::toUser($token);
+        $user->password = $request->new_password;
+        $user->save();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'password changed successfully',
+            'data'=> [
+                'user' => $user
             ]
         ]);
     }

@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { DashboardListComponent } from './views/dashboards/list/list.component';
 import { LoginComponent } from './views/login/login.component';
 import { AdminComponent } from './views/admin/admin.component';
+import { PasswordComponent } from './views/password/password.component';
 
 import { BlankLayoutComponent } from './components/common/layouts/blank.component';
 import { AdminLayoutComponent } from './components/common/layouts/admin.component';
@@ -21,6 +22,7 @@ export const ROUTES: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'dashboards', component: DashboardListComponent, canActivate: [AuthGuard] },
       { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
+      { path: 'password', component: PasswordComponent, canActivate: [AuthGuard] },
     ]
   },
 

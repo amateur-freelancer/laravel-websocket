@@ -7,6 +7,8 @@ use App\Dashboard;
 use Illuminate\Http\Request;
 use App\Helpers\Database;
 use Validator;
+use App\Jobs\MessageConsumer;
+use Bschmitt\Amqp\Facades\Amqp;
 use DB;
 
 class DashboardController extends Controller
@@ -111,6 +113,9 @@ class DashboardController extends Controller
             );
         }
 
+        $boxId = $request->code;
+        $queueName = 'box' . '-' . $boxId;
+
         $dashboard->code = $request->code;
         $dashboard->title = $request->title;
         $dashboard->info = $request->info;
@@ -122,6 +127,9 @@ class DashboardController extends Controller
         }
 
         $dashboard->save();
+
+        Amqp::publish('neu-alert', serialize($request->all()) , ['queue' => $queueName]);
+        $this->dispatch(new MessageConsumer($queueName));
 
         return response()->json($dashboard, 200);
     }
@@ -146,7 +154,8 @@ class DashboardController extends Controller
 
             return response()->json(['error' => $exception->getMessage()], 500);
         }
-
+        $queueName = 'box' . '-' . $code;
+        $this->dispatch(new MessageConsumer($queueName));
         return response()->json(null, 204);
     }
 }

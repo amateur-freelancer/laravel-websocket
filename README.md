@@ -29,6 +29,7 @@ $ composer install
 5. Database migration
 ```
 $ php artisan migrate
+$ php artisan db:seed   // added
 ```
 6. Run backend server
 ```
@@ -74,3 +75,30 @@ $ npm run build
 ```
 
 So frontend url should be `<site domain>/frontend`
+
+default user email is admin@admin.com
+password is "admin"
+
+bulk_massage params
+[{
+"box_id": "IdD1",
+"title": "One",
+"info": "Hello",
+"color": "red",
+"sort": 1,
+"profile_key": "b7f6ae69-330fdf-4416-be4e-07be4459707e"
+},
+{
+"box_id": "ID234",
+"title": "Two",
+"info": "Hello1",
+"color": "yellow",
+"sort": 3
+},
+{
+"box_id": "ID423",
+"title": "Three",
+"info": "Hello2",
+"color": "red",
+"sort": 3
+}]

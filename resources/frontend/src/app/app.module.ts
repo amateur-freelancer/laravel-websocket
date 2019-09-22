@@ -17,17 +17,22 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AdminGuard } from './_guards/admin.guard';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { AuthenticationService } from './services/authentication.service';
+import { UsersService } from './services/users.service';
 import { LoginComponent } from './views/login/login.component';
 import { AdminComponent } from './views/admin/admin.component';
 
 // App modules/components
 import { LayoutsModule } from './components/common/layouts/layouts.module';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { PasswordComponent } from './views/password/password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminComponent
+    AdminComponent,
+    NavbarComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -39,19 +44,20 @@ import { LayoutsModule } from './components/common/layouts/layouts.module';
     RouterModule.forRoot(ROUTES)
   ],
   providers: [
-                {   
-                    provide: LocationStrategy, 
-                    useClass: HashLocationStrategy 
-                },
-                AuthGuard,
-                AdminGuard,
-                AuthenticationService,
-                {
-                    provide: HTTP_INTERCEPTORS,
-                    useClass: JwtInterceptor,
-                    multi: true
-                },
-              ],
+    {   
+      provide: LocationStrategy, 
+      useClass: HashLocationStrategy 
+    },
+    AuthGuard,
+    AdminGuard,
+    AuthenticationService,
+    UsersService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

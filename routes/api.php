@@ -21,7 +21,7 @@ Route::group(['namespace' => 'Api'], function() {
     Route::delete('dashboards/{code}', 'DashboardController@destroy');
 
     Route::post('messages/publish', 'MessageController@publish');
-    Route::post('messages/bulk-publish', 'MessageController@bulk_publish');
+    Route::post('messages/bulk_publish', 'MessageController@bulk_publish');
 });
 
 Route::post('/register', 'AuthController@register');
@@ -29,4 +29,10 @@ Route::post('/login', 'AuthController@login');
 
 Route::middleware('jwt.auth')->group(function(){
     Route::get('logout', 'AuthController@logout');
+    Route::post('password', 'AuthController@password');
+    Route::post('/users', 'UsersController@create');
+    Route::get('/users', 'UsersController@list');
+    Route::get('/users/{id}', 'UsersController@read');
+    Route::put('/users/{id}', 'UsersController@update');
+    Route::delete('/users/{id}', 'UsersController@delete');
 });

@@ -24,7 +24,7 @@ class MessageController extends Controller
             'title' => $request->title,
             'info' => $request->info,
             'color' => $request->color,
-            'sort_order' => $request->sort_order,
+            'sort_order' => $request->sort,
             'profile_key' => $request->profile_key
         ];
 
@@ -58,8 +58,8 @@ class MessageController extends Controller
                     'title' => $message['title'],
                     'info' => $message['info'],
                     'color' => $message['color'],
-                    'sort_order' => $message['sort_order'],
-                    'profile_key' => $message['profile_key']
+                    'sort_order' => $message['sort'],
+                    'profile_key' => isset($message['profile_key'])?$message['profile_key']:null
                 ];
 
                 Amqp::publish('neu-alert', serialize($message) , ['queue' => $queueName]);
