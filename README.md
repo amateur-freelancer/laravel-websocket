@@ -60,6 +60,8 @@ $ npm run start
 
 ### Setting up production server
 It's same to set dev server for installing dependencies.
+Make sure the following php extensions are installed and enabled: 
+BCMath, Ctype, JSON, Mbstring, OpenSSL, PDO, Tokenizer, XML
 For backend;
 - setting apache or nginx server.
 - run socket server

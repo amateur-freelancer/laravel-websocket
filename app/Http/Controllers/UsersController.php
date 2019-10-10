@@ -30,6 +30,7 @@ class UsersController extends Controller
 	            'message' => $validator->messages()
 	        ], 401);
 	    }
+		$credentials["email"] =  strtolower($credentials["email"]);
 	    $user = User::create($credentials);
 
 	    return response()->json([
@@ -79,6 +80,7 @@ class UsersController extends Controller
 	        ], 401);
 	    }
 	    $user = User::find($id);
+		$credentials["email"] =  strtolower($credentials["email"]);
 	    $updated = $user->update($credentials);
 	    if($updated) {
     		return response()->json([

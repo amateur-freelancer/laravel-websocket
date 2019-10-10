@@ -1,6 +1,6 @@
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row" *ngFor="let order of groupedDashboardsKeys">
-    <div class="col-lg-4" *ngFor="let dashboard of groupedDashboards[order]">
+    <div class="col-lg-2" *ngFor="let dashboard of groupedDashboards[order]">
       <div class="ibox float-e-margins" [ngStyle]="{'border': '3px solid', 'border-color': dashboard.color}">
         <div class="ibox-title">
           <h5>{{ dashboard.title }}&nbsp;<small>{{ dashboard.updated_at }}</small></h5>
