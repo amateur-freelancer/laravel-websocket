@@ -30,6 +30,7 @@ $ composer install
 ```
 $ php artisan migrate
 $ php artisan db:seed   // added
+$ php artisan jwt:secret //added
 ```
 6. Run backend server
 ```
